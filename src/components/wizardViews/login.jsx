@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
 
 const LogIn = ({ setView, setUserId }) => {
-
   useEffect(() => {
-    fetch("https://morning-sands-27620.herokuapp.com/login", {
-      credentials:'include'
+    fetch("https://solo-project-dnd-server.herokuapp.com/login", {
+      credentials: "include",
     })
-    .then(res => res.json())
-    .then(res => {
-      if ('username' in res){
-        setUserId(res.username);
-        setView(5);
-      }
-    })
-  }, [])
+      .then((res) => res.json())
+      .then((res) => {
+        if ("username" in res) {
+          setUserId(res.username);
+          setView(5);
+        }
+      });
+  }, []);
 
   return (
     <div id="login">
@@ -55,8 +54,8 @@ const LogIn = ({ setView, setUserId }) => {
             className="submitButton"
             onClick={(e) => {
               e.preventDefault();
-              console.log(e.target.form[0].value)
-              fetch("https://morning-sands-27620.herokuapp.com/login", {
+              console.log(e.target.form[0].value);
+              fetch("https://solo-project-dnd-server.herokuapp.com/login", {
                 method: "POST",
                 credentials: "include",
                 headers: {

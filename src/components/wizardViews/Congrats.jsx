@@ -20,14 +20,14 @@ const Congrats = ({ props }) => {
   } = props;
 
   useEffect(() => {
-    if(userId !== ''){
-      setView(5)
+    if (userId !== "") {
+      setView(5);
     }
-  }, [])
+  }, []);
 
   return (
     <div id="congrats">
-      <JumpBack setView={setView}/>
+      <JumpBack setView={setView} />
       <div>
         Congrats on completing character creation!
         <br />
@@ -45,74 +45,155 @@ const Congrats = ({ props }) => {
       </div>
       <div className="basicSection">
         <strong>Sign Up</strong>
-        <br/><br/>
-      <form>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            required
-            minLength="3"
-            maxLength="20"
-            autoComplete="off"
-          ></input>
-          <br />
-          <br />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            required
-            minLength="3"
-            maxLength="20"
-            autoComplete="off"
-          ></input>
-          <br />
-          <br />
-        </div>
-        <div>
-          <label htmlFor="passwordconfirm">Confirm Password:</label>
-          <input
-            type="password"
-            id="passwordconfirm"
-            required
-            minLength="3"
-            maxLength="20"
-          ></input>
-          <br />
-          <br />
-        </div>
-        Once you're done, hit this button!
         <br />
-        <button
-          className="submitButton"
-          onClick={(e) => {
-            e.preventDefault();
-            if (e.target.form[1].value === e.target.form[2].value) {
-              fetch("https://morning-sands-27620.herokuapp.com/user", {
-                method: "POST",
-                credentials: 'include',
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  username: e.target.form[0].value,
-                  password: e.target.form[1].value,
-                  name,
-                  characterDescription,
-                  info,
-                  mainStats,
-                  languageAndProficiencies,
-                  armorClass,
-                  speed,
-                  attacksAndSpells,
-                  featuresAndTraits,
-                  equipment,
-                }),
-              })
+        <br />
+        <form>
+          <div>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              required
+              minLength="3"
+              maxLength="20"
+              autoComplete="off"
+            ></input>
+            <br />
+            <br />
+          </div>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              required
+              minLength="3"
+              maxLength="20"
+              autoComplete="off"
+            ></input>
+            <br />
+            <br />
+          </div>
+          <div>
+            <label htmlFor="passwordconfirm">Confirm Password:</label>
+            <input
+              type="password"
+              id="passwordconfirm"
+              required
+              minLength="3"
+              maxLength="20"
+            ></input>
+            <br />
+            <br />
+          </div>
+          Once you're done, hit this button!
+          <br />
+          <button
+            className="submitButton"
+            onClick={(e) => {
+              e.preventDefault();
+              if (e.target.form[1].value === e.target.form[2].value) {
+                fetch("https://solo-project-dnd-server.herokuapp.com/user", {
+                  method: "POST",
+                  credentials: "include",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    username: e.target.form[0].value,
+                    password: e.target.form[1].value,
+                    name,
+                    characterDescription,
+                    info,
+                    mainStats,
+                    languageAndProficiencies,
+                    armorClass,
+                    speed,
+                    attacksAndSpells,
+                    featuresAndTraits,
+                    equipment,
+                  }),
+                })
+                  .then((data) => data.json())
+                  .then((response) => {
+                    if (response === "username already taken") {
+                      alert("username already taken");
+                    } else if (response.hasOwnProperty("newUser")) {
+                      setUserId(response.newUser.username);
+                      setView(5);
+                    }
+                  });
+              } else {
+                alert("Passwords do not match");
+              }
+            }}
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
+      <br />
+      <div className="basicSection">
+        <strong>I already have an account</strong>
+        <br />
+        <br />
+        <form>
+          <div>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              required
+              minLength="3"
+              maxLength="20"
+              autoComplete="off"
+            ></input>
+            <br />
+            <br />
+          </div>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              required
+              minLength="3"
+              maxLength="20"
+              autoComplete="off"
+            ></input>
+            <br />
+            <br />
+          </div>
+
+          <br />
+          <button
+            className="submitButton"
+            onClick={(e) => {
+              e.preventDefault();
+              fetch(
+                "https://solo-project-dnd-server.herokuapp.com/loginandsave",
+                {
+                  method: "POST",
+                  credentials: "include",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    username: e.target.form[0].value,
+                    password: e.target.form[1].value,
+                    name,
+                    characterDescription,
+                    info,
+                    mainStats,
+                    languageAndProficiencies,
+                    armorClass,
+                    speed,
+                    attacksAndSpells,
+                    featuresAndTraits,
+                    equipment,
+                  }),
+                }
+              )
                 .then((data) => data.json())
                 .then((response) => {
                   if (response === "username already taken") {
@@ -122,87 +203,11 @@ const Congrats = ({ props }) => {
                     setView(5);
                   }
                 });
-            } else {
-              alert("Passwords do not match");
-            }
-          }}
-        >
-          Sign Up
-        </button>
-      </form>
-      </div>
-      <br/>
-      <div className="basicSection">
-        <strong>I already have an account</strong>
-        <br/><br/>
-      <form>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            required
-            minLength="3"
-            maxLength="20"
-            autoComplete="off"
-          ></input>
-          <br />
-          <br />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            required
-            minLength="3"
-            maxLength="20"
-            autoComplete="off"
-          ></input>
-          <br />
-          <br />
-        </div>
-        
-        <br />
-        <button
-          className="submitButton"
-          onClick={(e) => {
-            e.preventDefault();
-            fetch("https://morning-sands-27620.herokuapp.com/loginandsave", {
-              method: "POST",
-              credentials: "include",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                username: e.target.form[0].value,
-                password: e.target.form[1].value,
-                name,
-                characterDescription,
-                info,
-                mainStats,
-                languageAndProficiencies,
-                armorClass,
-                speed,
-                attacksAndSpells,
-                featuresAndTraits,
-                equipment,
-              }),
-            })
-              .then((data) => data.json())
-              .then((response) => {
-                if (response === "username already taken") {
-                  alert("username already taken");
-                } else if (response.hasOwnProperty("newUser")) {
-                  setUserId(response.newUser.username);
-                  setView(5);
-                }
-              });
-          }}
-        >
-          Log In and Store
-        </button>
-      </form>
+            }}
+          >
+            Log In and Store
+          </button>
+        </form>
       </div>
     </div>
   );
