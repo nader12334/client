@@ -1,0 +1,662 @@
+button {
+  background-color: #ADC2B0;
+}
+body {
+  background-color: #ADC2B0;
+  padding: 0px;
+  margin: 0px;
+  font-size: 18px;
+}
+#raceView{
+display: flex;
+flex-direction: column;
+}
+#classView{
+  display: flex;
+  flex-direction: column;
+  }
+#gatherInfoFinal{
+  display: flex;
+  flex-direction: column;
+  }
+#app {
+  display: flex;
+}
+#login{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  background-color: #ADC2B0;
+  top:0px;
+  left:0px;
+  height: 100%;
+  width: 100%;
+}
+
+.loginsection{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20%;
+  height: 20%;
+  width: 30%;
+  background-color: #8DAA91;
+  border-radius: 5px;
+  margin: 1px;
+  border: 1px solid #28112B;
+}
+
+.personalitySection {
+  background-color: #ADC2B0;
+  border: 1px solid #28112B;
+  height: 24%;
+  border-radius: 5px;
+  margin: 1px;
+  padding: 2px 5px 2px 5px;
+}
+.characterListSection{
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  background-color: #959F93;
+  position: relative;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0px 5px 0px;
+}
+.basicSection {
+  background-color: #8DAA91;
+  position: relative;
+  border: 1px solid #28112B;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0px 5px 0px;
+}
+
+#statRoll {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+}
+
+#pool {
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+  text-align: center;
+}
+
+#statDisplay {
+  display: flex;
+  width: 100%;
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+}
+
+.statSetting {
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+  text-align: center;
+  width: 16%;
+}
+
+#formWizard {
+  overflow: auto;
+  padding: 2px;
+  height: 99vh;
+  width: 25%;
+  background-color: #788475;
+  border: 1px solid #28112B;
+  border-radius: 5px;
+}
+
+.wizardView {
+  display: flex;
+  flex-direction: column;
+}
+.wepDetail {
+  font-size: smaller;
+  margin: 2px 2px 2px 2px;
+}
+.wepDetails {
+  display: flex;
+  border: 1px solid #28112B;
+  background-color: #ADC2B0;
+  border-radius: 5px;
+}
+
+.submitButton{
+  width: fit-content;
+  background-color: #A0A99E;
+  border: 1px solid #28112B;
+  border-radius: 10px;
+}
+
+.submitCharacterButton{
+  font-size: medium;
+  height: 50px;
+  background-color: #AAB2A9;
+  border: 1px solid #28112B;
+}
+.submitCharacterButton:hover{
+  border: 1px solid #28112B;
+  background-color: #ADC2B0;
+}
+#congrats{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #28112B;
+  border-radius: 5px;
+  background-color: #ADC2B0;
+}
+
+#characterSheet {
+  height: 100vh;
+  width: calc(100vh * 0.9);
+  display: grid;
+  grid-template-rows: 10% 30% 30% 30%;
+  grid-template-columns: 34% 32% 34%;
+  grid-template-areas:
+    "information information information"
+    "sss combat CB"
+    "sss A FT"
+    "EP E FT";
+}
+
+#combatUtil {
+  display: flex;
+  background-color: #ADC2B0
+}
+
+.util {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33%;
+  border-radius: 5px;
+  border: 1px #28112B solid;
+}
+
+#attacks {
+  grid-area: A;
+  display: flex;
+  position: relative;
+  overflow: auto;
+  flex-direction: column;
+  padding: 2px;
+  margin: 5px;
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+  border-radius: 8px;
+}
+
+#equipmentContainer {
+  grid-area: E;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding-left: 2%;
+  margin: 5px;
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+  border-radius: 8px;
+}
+
+#featsAndTraits {
+  grid-area: FT;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 5px;
+}
+
+#characterBackstory {
+  grid-area: CB;
+  display: flex;
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+#information {
+  grid-area: information;
+  justify-content: space-around;
+  width: 100%;
+  margin: 5px;
+  padding: 5px;
+  background-color: #8DAA91;
+  display: flex;
+  align-items: center;
+}
+/* #ADC2B0 */
+#characterName {
+  background-color: #ADC2B0;
+  border: solid 1px #28112B;
+  border-radius: 5px;
+  padding: 10px;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#otherInfo {
+  width: 60%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 50% 50%;
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
+  margin: 2px;
+  background-color: #ADC2B0;
+  border: solid 1px #28112B;
+  border-radius: 5px;
+}
+
+#mainStatsContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #ADC2B0;
+  padding: 2px 5px 2px 5px;
+  width: 25%;
+  align-items: center;
+}
+
+.mainStat {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  justify-content: space-around;
+  height: 13%;
+  margin: 2px 0px 10px 5px;
+  padding: 1px 2px 1px 2px;
+  width: 100%;
+  background-color: #8DAA91;
+  border: #28112B ridge 1px;
+  border-radius: 8px;
+}
+
+.stat {
+  background-color: #8DAA91;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  height: 50%;
+  margin-bottom: 10px;
+  width: 75%;
+}
+
+.modifier {
+  position: absolute;
+  top: 80%;
+  background-color: #C4D4C7;
+  text-align: center;
+  border: #28112B ridge 1px;
+  border-radius: 50%;
+  width: 70%;
+}
+
+#stats-skills-saves {
+  grid-area: sss;
+  display: flex;
+}
+
+#skillsContainer {
+  display: flex;
+  font-size: x-small;
+  width: 75%;
+  flex-direction: column;
+}
+
+#savingThrows {
+  font-size: xx-small;
+  background-color: #8DAA91;
+  border: #28112B ridge 1px;
+  border-radius: 8px;
+  margin: 1px 5px;
+  text-align: center;
+}
+
+.savingThrow {
+  display: flex;
+  align-items: center;
+  font-size: x-small;
+  margin: 2px 1px 3px 1px;
+}
+
+#skillMods {
+  font-size: xx-small;
+  background-color: #8DAA91;
+  border: #28112B ridge 1px;
+  border-radius: 8px;
+  margin: 1px 3px;
+  text-align: center;
+}
+
+#currentHitPoints {
+  border: 1px solid #28112B;
+  border-radius: 5px;
+  background-color: #ADC2B0;
+  height: 40%;
+  width: 100%;
+}
+
+.healthBox{
+  display: flex;
+  font-size: xx-large;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: #C4D4C7;
+  height: 100%;
+  width: 25%;
+}
+
+#tempHitPoints {
+  border: 1px solid #28112B;
+  border-radius: 5px;
+  background-color: #ADC2B0;
+  height: 40%;
+  width: 100%;
+}
+
+#healthContainer {
+  display: flex;
+  margin: 2px;
+  flex-direction: column;
+  height: 50%;
+}
+
+.skill {
+  background-color: #8DAA91;
+  display: flex;
+  font-size: small;
+  margin: 1px 1px 1px 1px;
+  align-items: center;
+}
+.proficiencyButton {
+  transform: scale(50%);
+  margin: 0px;
+}
+
+.rollStatButton {
+  width: 50%;
+  text-align: center;
+  padding: 0;
+}
+
+.secondaryText {
+  font-size: xx-small;
+  color: rgb(90, 95, 122);
+}
+.basicBonus {
+  font-size: x-small;
+  background-color: #8DAA91;
+  padding: 1px 0px 1px 0px;
+  margin: 2px 5px;
+  border: #28112B ridge 1px;
+  border-radius: 8px;
+}
+.basicMod {
+  font-size: x-small;
+  padding: 3px;
+  margin-right: 5px;
+  background-color: #C4D4C7;
+  border: #28112B solid 1px;
+  border-radius: 50%;
+}
+.combatMod {
+  font-size: x-large;
+  text-align: center;
+  width: 40%;
+  height: 50%;
+  margin: 0px;
+  padding: 5px;
+  background-color: #C4D4C7;
+  border: #28112B solid 1px;
+  border-radius: 50%;
+}
+.skillMod {
+  background-color: #8DAA91;
+  border-radius: 50%;
+  padding: 1.5px;
+  margin-left: 2px;
+  margin-right: 5px;
+}
+
+#extraproficiencies {
+  grid-area: EP;
+  display: flex;
+  flex-direction: column;
+}
+#languagesAndProficienciesContainer {
+  border: 1px solid #28112B;
+  background-color: #8DAA91;
+  border-radius: 8px;
+  padding-left: 2%;
+  margin: 5px;
+  overflow: auto;
+  height: fit-content;
+  height: 90%;
+  width: 90%;
+}
+#languagesAndProficiencies {
+  background-color: #8DAA91;
+  padding-left: 8%;
+  font-size: small;
+}
+.attribute {
+  font-size: small;
+  font-weight: bolder;
+}
+
+#combatStatsContainer {
+  grid-area: combat;
+  background-color: #8DAA91;
+  border: 1px solid #28112B;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+#hitDieAndDeathSaves {
+  display: flex;
+}
+
+#deathSaves {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #ADC2B0;
+  width: 50%;
+  border: 1px solid #28112B;
+  border-radius: 8px;
+  padding-left: 5px;
+}
+.dice {
+  font-weight: bold;
+  font-size: small;
+}
+
+#hitDie {
+  padding-left: 5px;
+  background-color: #ADC2B0;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #28112B;
+  border-radius: 8px;
+}
+.equip {
+  margin-left: 15%;
+}
+
+#cp {
+  font-size: x-small;
+  font-weight: bold;
+  background-color: #C4D4C7;
+  position: absolute;
+  border: 1px #28112B solid;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 5px;
+  top: 10%;
+  left: -5%;
+  height: 7%;
+  width: 20%;
+}
+
+#sp {
+  font-size: x-small;
+  font-weight: bold;
+  background-color: #C4D4C7;
+  position: absolute;
+  border: 1px #28112B solid;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 5px;
+  top: 20%;
+  left: -5%;
+  height: 7%;
+  width: 20%;
+}
+#ep {
+  font-size: x-small;
+  font-weight: bold;
+  background-color: #C4D4C7;
+  position: absolute;
+  border: 1px #28112B solid;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 5px;
+  top: 30%;
+  left: -5%;
+  height: 7%;
+  width: 20%;
+}
+#gp {
+  font-size: x-small;
+  font-weight: bold;
+  background-color: #C4D4C7;
+  position: absolute;
+  border: 1px #28112B solid;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 5px;
+  top: 40%;
+  left: -5%;
+  height: 7%;
+  width: 20%;
+}
+#pp {
+  font-size: x-small;
+  font-weight: bold;
+  background-color: #C4D4C7;
+  position: absolute;
+  border: 1px #28112B solid;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 5px;
+  top: 50%;
+  left: -5%;
+  height: 7%;
+  width: 20%;
+}
+
+.jumpBack{
+  height: 50px;
+  width: 50%;
+  margin-left: auto;
+}
+
+input{
+  background-color: #C4D4C7;
+}
+.regular-checkbox {
+	-webkit-appearance: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	background-color: #C4D4C7;
+	border: 1px solid #28112B;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 5px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+}
+.regular-checkbox:active, .regular-checkbox:checked:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-checkbox:checked {
+	background-color: #C4D4C7;
+	border: 1px solid #28112B;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+	color: #99a1a7;
+}
+.regular-checkbox:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: -5px;
+  left: 0px;
+	color: #28112B;
+}
+
+.regular-radio {
+	-webkit-appearance: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	background-color: #C4D4C7;
+	border: 1px solid #28112B;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 5px;
+	border-radius: 50%;
+	display: inline-block;
+	position: relative;
+}
+.regular-radio:active, .regular-radio:checked:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-radio:checked {
+	background-color: #C4D4C7;
+	border: 1px solid #28112B;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+	color: #99a1a7;
+}
+.regular-radio:checked:after {
+	content: '\2716';
+	font-size: 14px;
+	position: absolute;
+	top: -5px;
+  left: 0px;
+	color: #28112B;
+}
