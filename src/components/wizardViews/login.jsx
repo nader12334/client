@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 const LogIn = ({ setView, setUserId }) => {
 
   useEffect(() => {
-    fetch("http://localhost:8080/login", {
+    fetch("https://morning-sands-27620.herokuapp.com/login", {
       credentials:'include'
     })
     .then(res => res.json())
@@ -14,7 +14,7 @@ const LogIn = ({ setView, setUserId }) => {
       }
     })
   }, [])
-  
+
   return (
     <div id="login">
       <div className="loginsection">
@@ -56,7 +56,7 @@ const LogIn = ({ setView, setUserId }) => {
             onClick={(e) => {
               e.preventDefault();
               console.log(e.target.form[0].value)
-              fetch("http://localhost:8080/login", {
+              fetch("https://morning-sands-27620.herokuapp.com/login", {
                 method: "POST",
                 credentials: "include",
                 headers: {

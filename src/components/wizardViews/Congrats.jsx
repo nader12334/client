@@ -92,7 +92,7 @@ const Congrats = ({ props }) => {
           onClick={(e) => {
             e.preventDefault();
             if (e.target.form[1].value === e.target.form[2].value) {
-              fetch("http://localhost:8080/user", {
+              fetch("https://morning-sands-27620.herokuapp.com/user", {
                 method: "POST",
                 credentials: 'include',
                 headers: {
@@ -168,7 +168,7 @@ const Congrats = ({ props }) => {
           className="submitButton"
           onClick={(e) => {
             e.preventDefault();
-            fetch("http://localhost:8080/loginandsave", {
+            fetch("https://morning-sands-27620.herokuapp.com/loginandsave", {
               method: "POST",
               credentials: "include",
               headers: {

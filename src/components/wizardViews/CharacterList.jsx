@@ -26,7 +26,7 @@ const {
 const [characters, setCharacters] = useState([])
 const [refresh, setRefresh] = useState(false)
 useEffect(() => {
-  fetch(`http://localhost:8080/user/${userId}`, {
+  fetch(`https://morning-sands-27620.herokuapp.com/user/${userId}`, {
     credentials: 'include'
   })
   .then(data => data.json())
@@ -42,7 +42,7 @@ useEffect(() => {
       {characters.map((n) => {
         return (
           <button className="submitCharacterButton" key={n.characterId} value={n.characterId} onClick={(e) => {
-            fetch(`http://localhost:8080/char/?charId=${e.target.value}`, {
+            fetch(`https://morning-sands-27620.herokuapp.com/char/?charId=${e.target.value}`, {
               credentials: 'include'
             })
             .then(data => data.json())
@@ -67,7 +67,7 @@ useEffect(() => {
     <strong>Save your character and come back Later:</strong><br/>
     <button className="submitCharacterButton" onClick={(e) => {
       e.preventDefault();
-      fetch("http://localhost:8080/char", {
+      fetch("https://morning-sands-27620.herokuapp.com/char", {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -98,7 +98,7 @@ useEffect(() => {
     <strong>Delete the currently selected character:</strong><br/>
     <button className="submitCharacterButton" onClick={(e) => {
       e.preventDefault();
-      fetch("http://localhost:8080/char", {
+      fetch("https://morning-sands-27620.herokuapp.com/char", {
                 method: "DELETE",
                 credentials: "include",
                 headers: {
