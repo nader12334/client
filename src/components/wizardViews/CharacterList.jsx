@@ -27,7 +27,7 @@ const CharacterSelect = ({ userId, sets }) => {
   const [characters, setCharacters] = useState([]);
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
-    fetch(`https://solo-project-dnd-server.herokuapp.com/user/${userId}`, {
+    fetch(`http://localhost:8080/user/${userId}`, {
       credentials: "include",
     })
       .then((data) => data.json())
@@ -48,12 +48,9 @@ const CharacterSelect = ({ userId, sets }) => {
               key={n.characterId}
               value={n.characterId}
               onClick={(e) => {
-                fetch(
-                  `https://solo-project-dnd-server.herokuapp.com/char/?charId=${e.target.value}`,
-                  {
-                    credentials: "include",
-                  }
-                )
+                fetch(`http://localhost:8080/char/${e.target.value}`, {
+                  credentials: "include",
+                })
                   .then((data) => data.json())
                   .then((data) => {
                     setName(data.name);
@@ -82,7 +79,7 @@ const CharacterSelect = ({ userId, sets }) => {
           className="submitCharacterButton"
           onClick={(e) => {
             e.preventDefault();
-            fetch("https://solo-project-dnd-server.herokuapp.com/char", {
+            fetch("http://localhost:8080/char", {
               method: "POST",
               credentials: "include",
               headers: {
@@ -123,7 +120,7 @@ const CharacterSelect = ({ userId, sets }) => {
           className="submitCharacterButton"
           onClick={(e) => {
             e.preventDefault();
-            fetch("https://solo-project-dnd-server.herokuapp.com/char", {
+            fetch("http://localhost:8080/char", {
               method: "DELETE",
               credentials: "include",
               headers: {

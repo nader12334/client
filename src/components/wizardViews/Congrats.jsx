@@ -93,7 +93,7 @@ const Congrats = ({ props }) => {
             onClick={(e) => {
               e.preventDefault();
               if (e.target.form[1].value === e.target.form[2].value) {
-                fetch("https://solo-project-dnd-server.herokuapp.com/user", {
+                fetch("http://localhost:8080/user", {
                   method: "POST",
                   credentials: "include",
                   headers: {
@@ -170,30 +170,27 @@ const Congrats = ({ props }) => {
             className="submitButton"
             onClick={(e) => {
               e.preventDefault();
-              fetch(
-                "https://solo-project-dnd-server.herokuapp.com/loginandsave",
-                {
-                  method: "POST",
-                  credentials: "include",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    username: e.target.form[0].value,
-                    password: e.target.form[1].value,
-                    name,
-                    characterDescription,
-                    info,
-                    mainStats,
-                    languageAndProficiencies,
-                    armorClass,
-                    speed,
-                    attacksAndSpells,
-                    featuresAndTraits,
-                    equipment,
-                  }),
-                }
-              )
+              fetch("http://localhost:8080/loginandsave", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  username: e.target.form[0].value,
+                  password: e.target.form[1].value,
+                  name,
+                  characterDescription,
+                  info,
+                  mainStats,
+                  languageAndProficiencies,
+                  armorClass,
+                  speed,
+                  attacksAndSpells,
+                  featuresAndTraits,
+                  equipment,
+                }),
+              })
                 .then((data) => data.json())
                 .then((response) => {
                   if (response === "username already taken") {

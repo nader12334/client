@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const LogIn = ({ setView, setUserId }) => {
   useEffect(() => {
-    fetch("https://solo-project-dnd-server.herokuapp.com/login", {
+    fetch("http://localhost:8080/login", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -55,7 +55,7 @@ const LogIn = ({ setView, setUserId }) => {
             onClick={(e) => {
               e.preventDefault();
               console.log(e.target.form[0].value);
-              fetch("https://solo-project-dnd-server.herokuapp.com/login", {
+              fetch("http://localhost:8080/login", {
                 method: "POST",
                 credentials: "include",
                 headers: {
