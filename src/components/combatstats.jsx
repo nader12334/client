@@ -23,17 +23,17 @@ const CombatStats = ({ props }) => {
 
   const hitDicePool = [];
   let maxHealth = 0;
-  for (let job in info.class) {
+  for (let job of info.jobs) {
     let dice = "";
-    dice += info.class[job];
+    dice += job.level;
     dice += ":";
-    dice += hitDiceKey[job];
+    dice += hitDiceKey[job.class];
     hitDicePool.push(dice);
     maxHealth +=
-      Number(hitDiceKey[job].slice(1)) +
+      Number(hitDiceKey[job.class].slice(1)) +
       conMod +
-      (info.class[job] - 1) *
-        (Math.ceil(Number(hitDiceKey[job].slice(1)) / 2) + conMod);
+      (job.level - 1) *
+        (Math.ceil(Number(hitDiceKey[job.class].slice(1)) / 2) + conMod);
   }
 
   return (

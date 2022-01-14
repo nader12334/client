@@ -11,6 +11,8 @@ const FormWizard = ({ props }) => {
   const {
     name,
     characterDescription,
+    username,
+    setUsername,
     info,
     equipment,
     mainStats,
@@ -36,7 +38,7 @@ const FormWizard = ({ props }) => {
 
   const wizardViews = [
     <LogIn setView={setView} setUserId={setUserId}/>,
-    <Backstory props={{ setView, setCharacterDescription, setName, }} />,
+    <Backstory props={{ setView, setCharacterDescription, setUsername, setName, }} />,
     <RollStats props={{ setView, setMainStats }} />,
     <GatherInfo
       props={{
@@ -63,6 +65,7 @@ const FormWizard = ({ props }) => {
       setUserId,
       name,
       characterDescription,
+      username,
       info,
       equipment,
       mainStats,
@@ -76,6 +79,7 @@ const FormWizard = ({ props }) => {
       userId,
       name,
       characterDescription,
+      username,
       info,
       mainStats,
       languageAndProficiencies,
@@ -87,6 +91,7 @@ const FormWizard = ({ props }) => {
       setView,
       setName,
       setInfo,
+      setUsername,
       setCharacterDescription,
       setMainStats,
       setLanguageAndProficiencies,

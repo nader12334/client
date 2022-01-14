@@ -12,8 +12,8 @@ import Attacks from "./components/Attacks";
 
 function App() {
   const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
   const [characterDescription, setCharacterDescription] = useState({
-    "Player Name": "",
     personality: "",
     bonds: "",
     ideals: "",
@@ -22,10 +22,10 @@ function App() {
   });
   const [info, setInfo] = useState({
     level: 0,
-    class: {},
+    jobs: [],
     Race: "",
     Background: "",
-    "Experience Points": 0,
+    experience: 0,
   });
   const [mainStats, setMainStats] = useState({
     Strength: 8,
@@ -56,7 +56,7 @@ function App() {
             <span>{name}</span>
             <span className="secondaryText">Character Name</span>
           </div>
-          <OtherInfo info={info} description={characterDescription} />
+          <OtherInfo info={info} description={characterDescription} username={username} />
         </div>
         <div id="stats-skills-saves">
           <MainStats mainStats={mainStats} />
@@ -72,7 +72,7 @@ function App() {
         <CombatStats
           props={{ armorClass, speed, mainStats, info }}
         />
-        <CharacterBackstory props={{ characterDescription }} />
+        <CharacterBackstory props={{ characterDescription, username, }} />
         <FeatsAndTraits props={{ featuresAndTraits }} />
         <Equipment equipment={equipment} />
         <Attacks
@@ -96,6 +96,8 @@ function App() {
           setArmorClass,
           setName,
           setInfo,
+          username,
+          setUsername,
           setCharacterDescription,
           setMainStats,
           setLanguageAndProficiencies,

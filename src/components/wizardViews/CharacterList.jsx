@@ -5,6 +5,7 @@ const CharacterSelect = ({ userId, sets }) => {
   const {
     name,
     characterDescription,
+    username,
     info,
     mainStats,
     languageAndProficiencies,
@@ -17,6 +18,7 @@ const CharacterSelect = ({ userId, sets }) => {
     setName,
     setInfo,
     setCharacterDescription,
+    setUsername,
     setMainStats,
     setLanguageAndProficiencies,
     setFeaturesAndTraits,
@@ -55,6 +57,7 @@ const CharacterSelect = ({ userId, sets }) => {
                   .then((data) => {
                     setName(data.name);
                     setInfo(data.info);
+                    setUsername(data.username)
                     setCharacterDescription(data.characterDescription);
                     setMainStats(data.mainStats);
                     setLanguageAndProficiencies(data.languageAndProficiencies);
@@ -88,6 +91,7 @@ const CharacterSelect = ({ userId, sets }) => {
               body: JSON.stringify({
                 username: userId,
                 name,
+                username,
                 characterDescription,
                 info,
                 mainStats,
@@ -129,6 +133,7 @@ const CharacterSelect = ({ userId, sets }) => {
               body: JSON.stringify({
                 username: userId,
                 name,
+                username,
                 characterDescription,
                 info,
                 mainStats,
@@ -165,13 +170,13 @@ const CharacterSelect = ({ userId, sets }) => {
             setName("");
             setInfo({
               level: 0,
-              class: {},
+              jobs: [],
               Race: "",
               Background: "",
-              "Experience Points": 0,
+              experience: 0,
             });
+            setUsername("")
             setCharacterDescription({
-              "Player Name": "",
               personality: "",
               bonds: "",
               ideals: "",

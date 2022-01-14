@@ -78,14 +78,17 @@ const GatherInfoFinal = ({ props }) => {
             onSubmit={(e) => {
               e.preventDefault();
               const newClass = {};
-              newClass[classChoice] = 1;
+              newClass.class = classChoice
+              newClass.level = 1;
               const newClassInformation = {
                 level: 1,
-                class: newClass,
+                jobs: [],
                 Race: race,
                 Background: e.target[0].value,
-                "Experience Points": 0,
+                experience: 0,
               };
+              newClassInformation.jobs.push(newClass)
+
               setLanguageAndProficiencies([
                 ...languageAndProficiencies,
                 e.target[1].value,

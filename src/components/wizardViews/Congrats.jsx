@@ -8,6 +8,7 @@ const Congrats = ({ props }) => {
     userId,
     setView,
     name,
+    username,
     characterDescription,
     info,
     mainStats,

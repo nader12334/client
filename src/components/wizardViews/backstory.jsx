@@ -2,7 +2,7 @@ import React from "react";
 import JumpBack from "./jumpBackToList";
 
 const Backstory = ({ props }) => {
-  const { setView, setCharacterDescription, setName } = props;
+  const { setView, setCharacterDescription, setUsername, setName } = props;
 
   return (
     <div className="wizardView">
@@ -21,8 +21,8 @@ const Backstory = ({ props }) => {
           if (e.target[11].checked) morals = e.target[11].value;
 
           setName(e.target[1].value);
+          setUsername(e.target[0].value)
           setCharacterDescription({
-            "Player Name": e.target[0].value,
             personality: e.target[2].value,
             bonds: e.target[3].value,
             ideals: e.target[4].value,
@@ -33,7 +33,7 @@ const Backstory = ({ props }) => {
         }}
       >
         <div>
-          <label htmlFor="username">What is your name as the player?'</label>
+          <label htmlFor="username">What is your username?'</label>
           <input
             type="text"
             id="username"
