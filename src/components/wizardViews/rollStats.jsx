@@ -3,12 +3,12 @@ import JumpBack from "./jumpBackToList";
 import StatPool from "./statPool";
 
 const RollStats = ({ props }) => {
-  const { setView, setMainStats } = props;
+  const { setView, setMainStats, userId } = props;
   const [points, setPoints] = useState(27);
 
   return (
     <div className="wizardView">
-      <JumpBack setView={setView}/>
+      {userId ? <JumpBack setView={setView} /> : null}
       <strong>Time to roll stats!</strong>
       <br />
       <strong>

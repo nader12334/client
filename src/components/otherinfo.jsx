@@ -11,9 +11,9 @@ const OtherInfo = (props) => {
     "Race",
   ];
 
-  let idx = 0;
+  let idx = 1;
   divs.push(
-    <div key={idx} className="infoBlock">
+    <div key={0} className="infoBlock">
       <span>{username}</span>
       <span className="secondaryText">Username</span>
     </div>

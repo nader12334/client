@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import JumpBack from "./jumpBackToList";
 
 const StatPool = (props) => {
   const { setView, points, setPoints, setMainStats } = props;

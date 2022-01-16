@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import JumpBack from "./jumpBackToList";
+import axios from "axios";
 
 const Congrats = ({ props }) => {
   const {
@@ -21,14 +22,15 @@ const Congrats = ({ props }) => {
   } = props;
 
   useEffect(() => {
-    if (userId !== "") {
+    if (userId) {
       setView(5);
     }
   }, []);
 
   return (
     <div id="congrats">
-      <JumpBack setView={setView} />
+      {userId ? <JumpBack setView={setView} /> : null}
+
       <div>
         Congrats on completing character creation!
         <br />
@@ -44,10 +46,12 @@ const Congrats = ({ props }) => {
         <br />
         <br />
       </div>
+
       <div className="basicSection">
         <strong>Sign Up</strong>
         <br />
         <br />
+
         <form>
           <div>
             <label htmlFor="username">Username:</label>
@@ -93,35 +97,42 @@ const Congrats = ({ props }) => {
             className="submitButton"
             onClick={(e) => {
               e.preventDefault();
+
               if (e.target.form[1].value === e.target.form[2].value) {
-                fetch("http://localhost:8080/user", {
-                  method: "POST",
-                  credentials: "include",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    username: e.target.form[0].value,
-                    password: e.target.form[1].value,
-                    name,
-                    characterDescription,
-                    info,
-                    mainStats,
-                    languageAndProficiencies,
-                    armorClass,
-                    speed,
-                    attacksAndSpells,
-                    featuresAndTraits,
-                    equipment,
-                  }),
-                })
-                  .then((data) => data.json())
-                  .then((response) => {
-                    if (response === "username already taken") {
-                      alert("username already taken");
-                    } else if (response.hasOwnProperty("newUser")) {
-                      setUserId(response.newUser.username);
+                axios
+                  .post("http://localhost:8080/graphql", {
+                    query: `mutation($characterSheet: SheetInput, $user: UserInput) {
+                            createUser(characterSheet: $characterSheet, user: $user) {
+                              username
+                            }
+                          }`,
+                    variables: {
+                      user: {
+                        username: e.target.form[0].value,
+                        password: e.target.form[1].value,
+                      },
+                      characterSheet: {
+                        name,
+                        username: e.target.form[0].value,
+                        characterDescription,
+                        info,
+                        mainStats,
+                        languageAndProficiencies,
+                        armorClass,
+                        speed,
+                        attacksAndSpells,
+                        featuresAndTraits,
+                        equipment,
+                      },
+                    },
+                  })
+                  .then(({ data }) => {
+                    const { createUser } = data.data;
+                    if (createUser) {
+                      setUserId(createUser.username);
                       setView(5);
+                    } else {
+                      alert("username already taken");
                     }
                   });
               } else {
@@ -134,10 +145,12 @@ const Congrats = ({ props }) => {
         </form>
       </div>
       <br />
+
       <div className="basicSection">
         <strong>I already have an account</strong>
         <br />
         <br />
+
         <form>
           <div>
             <label htmlFor="username">Username:</label>
@@ -152,6 +165,7 @@ const Congrats = ({ props }) => {
             <br />
             <br />
           </div>
+
           <div>
             <label htmlFor="password">Password:</label>
             <input
@@ -165,45 +179,36 @@ const Congrats = ({ props }) => {
             <br />
             <br />
           </div>
-
           <br />
+
           <button
             className="submitButton"
             onClick={(e) => {
               e.preventDefault();
-              fetch("http://localhost:8080/loginandsave", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
+              axios.post("http://localhost:8080/graphql", {
+                query: `
+                  query($username: String, $password: String) {
+                    login(username: $username, password: $password) {
+                      username
+                    }
+                  }`,
+                variables: {
                   username: e.target.form[0].value,
                   password: e.target.form[1].value,
-                  name,
-                  characterDescription,
-                  info,
-                  mainStats,
-                  languageAndProficiencies,
-                  armorClass,
-                  speed,
-                  attacksAndSpells,
-                  featuresAndTraits,
-                  equipment,
-                }),
+                },
               })
-                .then((data) => data.json())
-                .then((response) => {
-                  if (response === "username already taken") {
-                    alert("username already taken");
-                  } else if (response.hasOwnProperty("newUser")) {
-                    setUserId(response.newUser.username);
+                .then(({data}) => {
+                  const { login } = data.data;
+                  if (login) {
+                    setUserId(login.username);
                     setView(5);
+                  } else {
+                    alert("User does not exist");
                   }
                 });
             }}
           >
-            Log In and Store
+            Log In then Save
           </button>
         </form>
       </div>

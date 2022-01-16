@@ -4,6 +4,7 @@ import JumpBack from "./jumpBackToList";
 
 const GatherInfoFinal = ({ props }) => {
   const {
+    userId,
     info,
     race,
     setInfo,
@@ -24,7 +25,7 @@ const GatherInfoFinal = ({ props }) => {
 
   return (
     <div id="gatherInfoFinal">
-      <JumpBack setView={setView}/>
+      {userId ? <JumpBack setView={setView} /> : null}
       <div className="basicSection">
         <span>
           You are nearly done creating your character!

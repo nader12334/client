@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const CharacterSelect = ({ userId, sets }) => {
   const {
@@ -26,87 +27,162 @@ const CharacterSelect = ({ userId, sets }) => {
     setEquipment,
     setSpeed,
   } = sets;
+
   const [characters, setCharacters] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  
+  // On mount generate list of characters with click event
   useEffect(() => {
-    fetch(`http://localhost:8080/user/${userId}`, {
-      credentials: "include",
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        setCharacters(data);
+    axios
+      .post(`http://localhost:8080/graphql`, {
+        query: `query($username: String) {
+        getUserByUsername(username: $username) {
+          username
+          characterSheets {
+            id
+            name
+          }
+        }
+      }`,
+        variables: {
+          username: userId,
+        },
+      })
+      .then(({data}) => {
+        const { characterSheets } = data.data.getUserByUsername;
+        setCharacters(characterSheets);
       });
-  }, [refresh]);
+  }, [userId]);
 
   return (
     <div id="characterSelect">
-      <div className="characterListSection">
+      {/* Generate Character List */}
+      <div key={0} className="characterListSection">
         <strong>Character List:</strong>
         <br />
         {characters.map((n) => {
           return (
             <button
               className="submitCharacterButton"
-              key={n.characterId}
-              value={n.characterId}
+              key={n.id}
+              value={n.id}
               onClick={(e) => {
-                fetch(`http://localhost:8080/char/${e.target.value}`, {
-                  credentials: "include",
+                axios.post(`http://localhost:8080/graphql`, {
+                  query: `query($id: ID) {
+                            getCharById(id: $id) {
+                              name
+                              username
+                              characterDescription {
+                                personality
+                                bonds
+                                ideals
+                                flaws
+                                Alignment
+                              }
+                              info {
+                                level
+                                jobs {
+                                  class
+                                  level
+                                }
+                                Race
+                                Background
+                                experience
+                              }
+                              mainStats {
+                                Strength
+                                Dexterity
+                                Constitution
+                                Intelligence
+                                Wisdom
+                                Charisma
+                              }
+                              languageAndProficiencies
+                              armorClass
+                              speed
+                              attacksAndSpells
+                              featuresAndTraits
+                              equipment {
+                                index
+                                quantity
+                              }
+                            }
+                          }`,
+                  variables: {
+                    id: e.target.value,
+                  },
                 })
-                  .then((data) => data.json())
-                  .then((data) => {
-                    setName(data.name);
-                    setInfo(data.info);
-                    setUsername(data.username)
-                    setCharacterDescription(data.characterDescription);
-                    setMainStats(data.mainStats);
-                    setLanguageAndProficiencies(data.languageAndProficiencies);
-                    setFeaturesAndTraits(data.featuresAndTraits);
-                    setAttacksAndSpells(data.attacksAndSpells);
-                    setEquipment(data.equipment);
-                    setSpeed(data.speed);
+                  .then(({ data }) => {
+                    const char = data.data.getCharById;
+                    setName(char.name);
+                    setUsername(char.username);
+                    setCharacterDescription(char.characterDescription);
+                    setInfo(char.info);
+                    setMainStats(char.mainStats);
+                    setLanguageAndProficiencies(char.languageAndProficiencies);
+                    setFeaturesAndTraits(char.featuresAndTraits);
+                    setAttacksAndSpells(char.attacksAndSpells);
+                    setEquipment(char.equipment);
+                    setSpeed(char.speed);
                   });
               }}
             >
-              {n.characterName}
+              {n.name}
             </button>
           );
         })}
       </div>
       <br />
       <br />
-      <div className="characterListSection">
+      {/* Save a Character */}
+      <div key={1} className="characterListSection">
         <strong>Save your character and come back Later:</strong>
         <br />
         <button
           className="submitCharacterButton"
           onClick={(e) => {
             e.preventDefault();
-            fetch("http://localhost:8080/char", {
-              method: "POST",
-              credentials: "include",
-              headers: {
-                "Content-Type": "application/json",
+            axios.post("http://localhost:8080/graphql", {
+              query: `mutation($characterSheet: SheetInput, $user: UserInput) {
+                saveSheet(characterSheet: $characterSheet, user: $user) {
+                  id
+                  name
+                }
+              }`,
+              variables: {
+                user: {
+                  username: userId,
+                },
+                characterSheet: {
+                  name,
+                  username: userId,
+                  characterDescription,
+                  info,
+                  mainStats,
+                  languageAndProficiencies,
+                  armorClass,
+                  speed,
+                  attacksAndSpells,
+                  featuresAndTraits,
+                  equipment,
+                },
               },
-              body: JSON.stringify({
-                username: userId,
-                name,
-                username,
-                characterDescription,
-                info,
-                mainStats,
-                languageAndProficiencies,
-                armorClass,
-                speed,
-                attacksAndSpells,
-                featuresAndTraits,
-                equipment,
-              }),
             })
-              .then((data) => data.json())
-              .then(() => {
-                alert("Character Saved");
-                setRefresh(!refresh);
+              .then(({data}) => {
+                const {saveSheet} = data.data
+                if(saveSheet){
+                  let exists = false
+                  for (const char of characters){
+                    if (char.name === saveSheet.name) {
+                      exists = true
+                      break;
+                    }
+                  }
+                  if (!exists) {
+                    const newCharacters = [...characters]
+                    newCharacters.push(saveSheet)
+                    setCharacters(newCharacters)
+                  }
+                } else alert("Error Saving Character")
               });
           }}
         >
@@ -117,38 +193,39 @@ const CharacterSelect = ({ userId, sets }) => {
       </div>
       <br />
       <br />
-      <div className="characterListSection">
+      {/* Delete a Character */}
+      <div key={2} className="characterListSection">
         <strong>Delete the currently selected character:</strong>
         <br />
         <button
           className="submitCharacterButton"
           onClick={(e) => {
             e.preventDefault();
-            fetch("http://localhost:8080/char", {
-              method: "DELETE",
-              credentials: "include",
-              headers: {
-                "Content-Type": "application/json",
+            axios.post("http://localhost:8080/graphql", {
+              query: `
+                mutation($characterSheet: SheetInput, $user: UserInput) {
+                  deleteSheet(characterSheet: $characterSheet, user: $user) {
+                    characterSheets {
+                      id
+                      name
+                    }
+                  }
+                }`,
+              variables: {
+                user: {
+                  username: userId,
+                },
+                characterSheet: {
+                  name,
+                  username,
+                },
               },
-              body: JSON.stringify({
-                username: userId,
-                name,
-                username,
-                characterDescription,
-                info,
-                mainStats,
-                languageAndProficiencies,
-                armorClass,
-                speed,
-                attacksAndSpells,
-                featuresAndTraits,
-                equipment,
-              }),
             })
-              .then((data) => data.json())
-              .then(() => {
-                alert("Character Deleted");
-                setRefresh(!refresh);
+              .then(({data}) => {
+                const {deleteSheet} = data.data
+                if(deleteSheet){
+                  setCharacters(deleteSheet.characterSheets)
+                } else alert("Error Deleting Character")
               });
           }}
         >
@@ -159,7 +236,8 @@ const CharacterSelect = ({ userId, sets }) => {
       </div>
       <br />
       <br />
-      <div className="characterListSection">
+      {/* Reset Character Creator */}
+      <div key={3} className="characterListSection">
         <strong>Start a new Character:</strong>
         <br />
         <button
@@ -175,7 +253,7 @@ const CharacterSelect = ({ userId, sets }) => {
               Background: "",
               experience: 0,
             });
-            setUsername("")
+            setUsername("");
             setCharacterDescription({
               personality: "",
               bonds: "",

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import JumpBack from "./jumpBackToList";
 
 const SpellChoices = ({ props }) => {
-  const { classChoice, setInfoViews, setAttacksAndSpells, setView } = props;
+  const { classChoice, setInfoViews, setAttacksAndSpells, setView, userId } = props;
   const [spells0, setSpells0] = useState([]);
   const [spells1, setSpells1] = useState([]);
   const [spellCount, setSpellCount] = useState(new Array(10).fill(0));
@@ -142,7 +142,7 @@ const SpellChoices = ({ props }) => {
 
   return (
     <div id="spellChoices">
-      <JumpBack setView={setView}/>
+      {userId ? <JumpBack setView={setView} /> : null}
       <form>
         {classChoice === "Wizard" && (
           <div>

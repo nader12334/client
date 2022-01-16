@@ -34,14 +34,15 @@ const FormWizard = ({ props }) => {
   } = props;
 
   const [view, setView] = useState(0);
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(null);
 
   const wizardViews = [
-    <LogIn setView={setView} setUserId={setUserId}/>,
-    <Backstory props={{ setView, setCharacterDescription, setUsername, setName, }} />,
-    <RollStats props={{ setView, setMainStats }} />,
+    <LogIn userId={userId} setView={setView} setUserId={setUserId}/>,
+    <Backstory props={{ setView, setCharacterDescription, setUsername, setName, userId,}} />,
+    <RollStats props={{ setView, setMainStats, userId }} />,
     <GatherInfo
       props={{
+        userId,
         equipment,
         info,
         mainStats,

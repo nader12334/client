@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import axios from "axios"
 
 const LogIn = ({ setView, setUserId }) => {
   useEffect(() => {
-    fetch("http://localhost:8080/login", {
+    axios.post("http://localhost:8080/login", {
       credentials: "include",
     })
-      .then((res) => res.json())
       .then((res) => {
         if ("username" in res) {
           setUserId(res.username);
@@ -54,27 +54,26 @@ const LogIn = ({ setView, setUserId }) => {
             className="submitButton"
             onClick={(e) => {
               e.preventDefault();
-              console.log(e.target.form[0].value);
-              fetch("http://localhost:8080/login", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  username: e.target.form[0].value,
-                  password: e.target.form[1].value,
-                }),
+              axios.post("http://localhost:8080/graphql", {
+              query: `query( $username: String, $password: String) {
+                        login(username: $username, password: $password) {
+                          username
+                        }
+                      }`,
+              variables: {
+                username: e.target.form[0].value,
+                password: e.target.form[1].value,
+              },
               })
-                .then((data) => data.json())
-                .then((response) => {
-                  if (response.hasOwnProperty("username")) {
-                    setUserId(response.username);
+              .then(({data}) => {
+                const { login } = data.data;
+                  if (login) {
+                    setUserId(login.username);
                     setView(5);
                   } else {
                     alert("Sorry username or password is incorrect!");
                   }
-                });
+                })
             }}
           >
             Continue

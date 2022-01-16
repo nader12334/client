@@ -2,11 +2,11 @@ import React from "react";
 import JumpBack from "./jumpBackToList";
 
 const Backstory = ({ props }) => {
-  const { setView, setCharacterDescription, setUsername, setName } = props;
+  const { setView, setCharacterDescription, setUsername, setName, userId } = props;
 
   return (
     <div className="wizardView">
-      <JumpBack setView={setView}/>
+      {userId ? <JumpBack setView={setView} /> : null}
       <strong>Let's get some of your character's story to start</strong>
       <br />
       <form
@@ -33,13 +33,14 @@ const Backstory = ({ props }) => {
         }}
       >
         <div>
-          <label htmlFor="username">What is your username?'</label>
+          <label htmlFor="username">What is your username?</label>
           <input
             type="text"
             id="username"
             required
             minLength="3"
             maxLength="20"
+            defaultValue={userId}
             autoComplete="off"
           ></input>
         </div>

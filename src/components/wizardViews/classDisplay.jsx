@@ -15,6 +15,7 @@ const ClassDisplay = ({ props }) => {
   });
 
   const {
+    userId,
     equipment,
     setView,
     setEquipment,
@@ -226,7 +227,7 @@ const ClassDisplay = ({ props }) => {
 
   return (
     <div id="classView">
-      <JumpBack setView={setView}/>
+      {userId ? <JumpBack setView={setView} /> : null}
       <div>
         Choose what class your character will be. <br />
         Below you can see all the information for each class.

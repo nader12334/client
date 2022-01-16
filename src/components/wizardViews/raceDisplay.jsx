@@ -3,6 +3,7 @@ import JumpBack from "./jumpBackToList";
 
 const RaceDisplay = ({ props }) => {
   const {
+    userId,
     setRace,
     mainStats,
     setView,
@@ -124,7 +125,7 @@ const RaceDisplay = ({ props }) => {
 
   return (
     <div id="raceView">
-      <JumpBack setView={setView}/>
+      {userId ? <JumpBack setView={setView} /> : null}
       <div>
         Choose what race your character belongs to. <br />
         Below you can see all the information for each race.
