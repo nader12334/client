@@ -23,7 +23,7 @@ const Congrats = ({ props }) => {
     if (userId) {
       setView(5);
     }
-  }, []);
+  }, [])
 
   return (
     <div id="congrats">
