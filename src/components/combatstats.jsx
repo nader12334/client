@@ -39,26 +39,26 @@ const CombatStats = ({ props }) => {
   return (
     <div id="combatStatsContainer">
       <div id="combatUtil">
-        <div key={0} className="util">
-          <span className="combatMod">{speed}</span>
-          <strong className="attribute">Speed</strong>
+        <div className="util">
+          <span key={1} className="combatMod">{speed}</span>
+          <strong key={2} className="attribute">Speed</strong>
         </div>
-        <div key={1} className="util">
-          <span className="combatMod">{armorClass}</span>
-          <strong className="attribute">AC</strong>
+        <div className="util">
+          <span key={2} className="combatMod">{armorClass}</span>
+          <strong key={3} className="attribute">AC</strong>
         </div>
-        <div key={2} className="util">
+        <div className="util">
           <span className="combatMod"></span>
           <strong className="attribute">Initiative</strong>
         </div>
       </div>
 
       <div id="healthContainer">
-        <div id="currentHitPoints">
+        <div key={0} id="currentHitPoints">
           <div className="healthBox">{maxHealth}</div>
         </div>
         <strong className="attribute">Hitpoint Maximum</strong>
-        <div id="tempHitPoints">
+        <div key={1} id="tempHitPoints">
           <div className="healthBox"></div>
         </div>
         <strong className="attribute">Temporary Hitpoints</strong>
@@ -66,21 +66,21 @@ const CombatStats = ({ props }) => {
 
       <div id="hitDieAndDeathSaves">
         <div id="hitDie">
-          <span className="attribute">Hit Dice</span>
-          {hitDicePool.map((dice) => (
-            <span className="dice">______ | {dice}</span>
+          <span key={3} className="attribute">Hit Dice</span>
+          {hitDicePool.map((dice, idx) => (
+            <span key={idx} className="dice">______ | {dice}</span>
           ))}
           <span key={6} className="attribute">Remaining/ Total</span>
         </div>
         <div id="deathSaves">
-          <div
+          <div 
             style={{
               display: "flex",
               textAlign: "center",
               alignItems: "center",
             }}
           >
-            <span key={4} className="attribute">Successes</span>
+            <span className="attribute">Successes</span>
             <input key={0} className="regular-checkbox" type="checkbox"></input>
             <input key={1} className="regular-checkbox" type="checkbox"></input>
             <input key={2} className="regular-checkbox" type="checkbox"></input>
@@ -92,10 +92,10 @@ const CombatStats = ({ props }) => {
               alignItems: "center",
             }}
           >
-            <span key={5} className="attribute">Failures</span>
-            <input key={0} className="regular-checkbox" type="checkbox"></input>
-            <input key={1} className="regular-checkbox" type="checkbox"></input>
-            <input key={2} className="regular-checkbox" type="checkbox"></input>
+            <span className="attribute">Failures</span>
+              <input key={0} className="regular-checkbox" type="checkbox"></input>
+              <input key={1} className="regular-checkbox" type="checkbox"></input>
+              <input key={2} className="regular-checkbox" type="checkbox"></input>
           </div>
           <span className="attribute">Death Saves</span>
         </div>

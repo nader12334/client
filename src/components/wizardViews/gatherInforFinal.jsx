@@ -5,7 +5,6 @@ import JumpBack from "./jumpBackToList";
 const GatherInfoFinal = ({ props }) => {
   const {
     userId,
-    info,
     race,
     setInfo,
     setView,

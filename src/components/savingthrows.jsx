@@ -1,7 +1,7 @@
 import React from "react";
 
 const SavingThrows = ({ props }) => {
-  const { mainStats, info, languageAndProficiencies } = props;
+  const { mainStats, languageAndProficiencies } = props;
 
   const divs = [];
   const fields = [

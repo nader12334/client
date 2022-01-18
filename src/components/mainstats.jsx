@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 const MainStats = (props) => {
   const { mainStats } = props;

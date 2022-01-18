@@ -16,9 +16,11 @@ const FeatsAndTraits = ({ props }) => {
     return traitlist;
   };
 
-  useEffect(async () => {
-    const detailedList = await getDetailedTraits(featuresAndTraits);
-    setDetails(detailedList);
+  useEffect(() => {
+    getDetailedTraits(featuresAndTraits)
+    .then((detailedList) => {
+      setDetails(detailedList);
+    })
   }, [featuresAndTraits]);
 
   const divs = [];

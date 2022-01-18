@@ -1,5 +1,6 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import JumpBack from "./jumpBackToList";
+import axios from "axios";
 
 const RaceDisplay = ({ props }) => {
   const {
@@ -9,38 +10,12 @@ const RaceDisplay = ({ props }) => {
     setView,
     setSpeed,
     setInfoViews,
-    setInfo,
     setLanguageAndProficiencies,
     setFeaturesAndTraits,
     setMainStats,
   } = props;
   const [raceList, setRaceList] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  const [raceInfo, setRaceInfo] = useState({
-    index: "",
-    name: "",
-    speed: 30,
-    ability_bonuses: [],
-    alignment: "",
-    age: "",
-    size: "",
-    size_description: "",
-    starting_proficiencies: [],
-    languages: [],
-    language_desc: "",
-    traits: [],
-    subraces: [],
-    url: "",
-  });
-
-  useEffect(() => {
-    fetch("https://www.dnd5eapi.co/api/races")
-      .then((data) => data.json())
-      .then((racelist) => {
-        setRaceList(racelist.results);
-      });
-  }, []);
-
+  const [raceInfo, setRaceInfo] = useState(false);
   const newStats = { ...mainStats };
   const newProficienciesAndLanguages = [];
   const newFeatsAndTraits = [];
@@ -53,75 +28,11 @@ const RaceDisplay = ({ props }) => {
     cha: "Charisma",
   };
 
-  const races = [];
-  races.push(
-    <option value="default" disabled>
-      Select your Race
-    </option>
-  );
-  for (let race of raceList) {
-    races.push(<option value={race.index}>{race.name}</option>);
-  }
-
-  const languages = [];
-  for (let language of raceInfo.languages) {
-    newProficienciesAndLanguages.push(language.name);
-    languages.push(<li>{language.name}</li>);
-  }
-
-  const languagesoptions = [];
-  if (raceInfo.hasOwnProperty("language_options")) {
-    languagesoptions.push(<option value="default">Select Language</option>);
-    for (let language of raceInfo.language_options.from) {
-      languagesoptions.push(
-        <option value={language.name}>{language.name}</option>
-      );
-    }
-  }
-
-  const totalProfOptions = [];
-  if (raceInfo.hasOwnProperty("starting_proficiency_options")) {
-    for (let i = 0; i < raceInfo.starting_proficiency_options.choose; i++) {
-      const profoptions = [];
-      profoptions.push(<option value="default">Select Proficiency</option>);
-      for (let prof of raceInfo.starting_proficiency_options.from) {
-        profoptions.push(<option value={prof.index}>{prof.name}</option>);
-      }
-      totalProfOptions.push(
-        <div>
-          <select
-            name="proficiency"
-            id="proficiency-select"
-            defaultValue={"default"}
-          >
-            {profoptions}
-          </select>
-          <br />
-        </div>
-      );
-    }
-  }
-
-  const proficiencies = [];
-  for (let proficiency of raceInfo.starting_proficiencies) {
-    newProficienciesAndLanguages.push(proficiency.index);
-    proficiencies.push(<li>{proficiency.name}</li>);
-  }
-  const traits = [];
-  for (let trait of raceInfo.traits) {
-    newFeatsAndTraits.push("traits/" + trait.index);
-    traits.push(<li>{trait.name}</li>);
-  }
-
-  const abilitybonuses = [];
-  for (let bonus of raceInfo.ability_bonuses) {
-    newStats[statKey[bonus.ability_score.index]] += bonus.bonus;
-    abilitybonuses.push(
-      <li>
-        {bonus.ability_score.name} +{bonus.bonus}
-      </li>
-    );
-  }
+  useEffect(() => {
+    axios.get("https://www.dnd5eapi.co/api/races").then(({ data }) => {
+      setRaceList(data.results);
+    });
+  }, []);
 
   return (
     <div id="raceView">
@@ -138,7 +49,6 @@ const RaceDisplay = ({ props }) => {
             fetch(`https://www.dnd5eapi.co/api/races/${e.target.value}`)
               .then((data) => data.json())
               .then((raceInfo) => {
-                setLoaded(true);
                 setRaceInfo(raceInfo);
               });
           }}
@@ -146,7 +56,14 @@ const RaceDisplay = ({ props }) => {
           name="races"
           id="race-select"
         >
-          {races}
+          <option value="default" disabled>
+            Select your Race
+          </option>
+          {raceList.map((race, idx) => (
+            <option key={idx} value={race.index}>
+              {race.name}
+            </option>
+          ))}
         </select>
         {raceInfo.hasOwnProperty("language_options") && (
           <div>
@@ -159,7 +76,12 @@ const RaceDisplay = ({ props }) => {
               id="language-select"
               defaultValue="default"
             >
-              {languagesoptions}
+              <option value="default">Select Language</option>
+              {raceInfo.language_options.from.map((language, idx) => (
+                <option key={idx} value={language.name}>
+                  {language.name}
+                </option>
+              ))}
             </select>
           </div>
         )}
@@ -169,7 +91,27 @@ const RaceDisplay = ({ props }) => {
               Choose Bonus proficiencies:
               <br />
             </label>
-            {totalProfOptions}
+            {new Array(raceInfo.starting_proficiency_options.choose)
+              .fill(0)
+              .map((i, idx) => (
+                <div key={idx}>
+                  <select
+                    name="proficiency"
+                    id="proficiency-select"
+                    defaultValue={"default"}
+                  >
+                    <option key={0} value="default">Select Proficiency</option>)
+                    {raceInfo.starting_proficiency_options.from.map(
+                      (prof, key) => (
+                        <option key={key + 1} value={prof.index}>
+                          {prof.name}
+                        </option>
+                      )
+                    )}
+                  </select>
+                  <br />
+                </div>
+              ))}
           </div>
         )}
         <br />
@@ -204,7 +146,7 @@ const RaceDisplay = ({ props }) => {
       </form>
       <br />
 
-      {loaded && (
+      {raceInfo && (
         <div id="raceDisplay">
           <div className="basicSection">
             Base Movement Speed: {raceInfo.speed}
@@ -212,20 +154,36 @@ const RaceDisplay = ({ props }) => {
           <div className="basicSection">Size: {raceInfo.size}</div>
           <div className="basicSection">
             Ability Bonuses:
-            {abilitybonuses}
+            {raceInfo.ability_bonuses.map((bonus, idx) => {
+              newStats[statKey[bonus.ability_score.index]] += bonus.bonus;
+              return (
+                <li key={idx}>
+                  {bonus.ability_score.name} +{bonus.bonus}
+                </li>
+              );
+            })}
           </div>
           <div className="basicSection">
             Starting Proficiencies:
-            {proficiencies}
+            {raceInfo.starting_proficiencies.map((proficiency, idx) => {
+              newProficienciesAndLanguages.push(proficiency.index);
+              return <li key={idx}>{proficiency.name}</li>;
+            })}
             <br />
           </div>
           <div className="basicSection">
             Traits:
-            {traits}
+            {raceInfo.traits.map((trait, idx) => {
+              newFeatsAndTraits.push("traits/" + trait.index);
+              return <li key={idx}>{trait.name}</li>;
+            })}
           </div>
           <div className="basicSection">
             Languages:
-            {languages}
+            {raceInfo.languages.map((language, idx) => {
+              newProficienciesAndLanguages.push(language.name);
+              return <li key={idx}>{language.name}</li>;
+            })}
             {raceInfo.language_desc}
           </div>
           <div className="basicSection">

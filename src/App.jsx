@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import MainStats from "./components/mainstats";
 import Skills from "./components/skills";
 import OtherInfo from "./components/otherinfo";

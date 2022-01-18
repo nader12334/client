@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import RaceDisplay from "./raceDisplay";
 import ClassDisplay from "./classDisplay";
 import GatherInfoFinal from "./gatherInforFinal";
@@ -66,7 +66,6 @@ const GatherInfo = ({ props }) => {
     <GatherInfoFinal
       props={{
         info,
-        setView,
         setInfo,
         race,
         classChoice,

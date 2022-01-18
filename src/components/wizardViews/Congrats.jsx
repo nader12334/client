@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect } from "react";
-import JumpBack from "./jumpBackToList";
 import axios from "axios";
 
 const Congrats = ({ props }) => {
@@ -9,7 +8,6 @@ const Congrats = ({ props }) => {
     userId,
     setView,
     name,
-    username,
     characterDescription,
     info,
     mainStats,
@@ -29,7 +27,6 @@ const Congrats = ({ props }) => {
 
   return (
     <div id="congrats">
-      {userId ? <JumpBack setView={setView} /> : null}
 
       <div>
         Congrats on completing character creation!

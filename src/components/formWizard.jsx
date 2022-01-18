@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Backstory from "./wizardViews/backstory";
 import RollStats from "./wizardViews/rollStats";
 import GatherInfo from "./wizardViews/gatherInfo";
 import Congrats from "./wizardViews/Congrats"
 import LogIn from "./wizardViews/login";
 import CharacterSelect from "./wizardViews/CharacterList"
-import JumpBack from "./wizardViews/jumpBackToList";
 
 const FormWizard = ({ props }) => {
   const {
@@ -26,7 +25,6 @@ const FormWizard = ({ props }) => {
     setMainStats,
     setProficiencies,
     setLanguageAndProficiencies,
-    setArmorClass,
     setSpeed,
     setAttacksAndSpells,
     setEquipment,
@@ -55,7 +53,6 @@ const FormWizard = ({ props }) => {
         setView,
         setInfo,
         setLanguageAndProficiencies,
-        setFeaturesAndTraits,
         setAttacksAndSpells,
         setMainStats,
       }}
@@ -74,7 +71,6 @@ const FormWizard = ({ props }) => {
       languageAndProficiencies,
       featuresAndTraits,
       attacksAndSpells,
-      setUserId,
     }}/>,
     <CharacterSelect userId={userId} sets={{
       userId,
@@ -88,7 +84,6 @@ const FormWizard = ({ props }) => {
       attacksAndSpells,
       featuresAndTraits,
       equipment,
-      userId,
       setView,
       setName,
       setInfo,

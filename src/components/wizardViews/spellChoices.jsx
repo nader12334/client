@@ -70,7 +70,7 @@ const SpellChoices = ({ props }) => {
                       info.damage.damage_at_slot_level["1"] +
                         " " +
                         info.damage.damage_type.name
-                    );
+                    )
                   } else {
                     setCurrentSpellDmg(
                       info.damage.damage_at_character_level["1"] +
